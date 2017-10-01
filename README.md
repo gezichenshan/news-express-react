@@ -7,14 +7,14 @@
 
 ``` bash
 #clone the repository
-git clone https://github.com/gezichenshan/news-express-vue.git
+git clone https://github.com/gezichenshan/news-express-react.git
 
-cd news-express-vue
+cd news-express-react
 
 # install dependencies
 npm install
 
-# serve at localhost:8080
+# serve at localhost:3000
 npm start
 
 ```
