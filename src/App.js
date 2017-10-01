@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import request from './utils/requests'
 import NewsList from './components/news-list/'
+import Loading from './components/loading/'
 import './App.css';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -12,17 +13,20 @@ class App extends Component {
         offset:0,
         limit:10,
         newsList:[],
-        more:false
+        more:false,
+        loading:true
       };
     }
   componentDidMount(){
     this.loadMore()
   }
   async loadMore() {
-    console.log(Date())
     let data = await request(this.state.offset, this.state.limit)
     this.setState({
       newsList:[...this.state.newsList,...data.results]
+    })
+    this.setState({
+      loading:false
     })
     if(this.state.newsList.length<data.total){//如果总数没有超过已经加载数，则继续加载。
       this.setState({
@@ -35,11 +39,11 @@ class App extends Component {
         more:false
       })
     }
-    console.log(Date())
   }
   render() {
     return (
       <div className="App">
+        {this.state.loading&&<Loading/>}
         <InfiniteScroll
             pageStart={0}
             loadMore={this.loadMore.bind(this)}
